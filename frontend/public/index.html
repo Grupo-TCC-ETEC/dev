@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <title>Estoque</title>
+  <link rel="icon" href="/logo-capivara.png">
+  <link rel="stylesheet" href="/styles.css?v=4.0.0">
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+  <div id="loading" class="loading hidden"><span></span></div>
+
+  <main id="loginView" class="login">
+    <section class="login-brand">
+      <img src="/logo-capivara.png" alt="Logo do Estoque">
+      <div><h1>Estoque</h1><p>Controle simples. Desperdício menor.</p></div>
+    </section>
+    <form id="loginForm" class="login-form">
+      <small>ACESSO SEGURO</small><h2>Entrar</h2>
+      <label>E-mail<input id="email" type="email" value="admin@estoque.local" required></label>
+      <label>Senha<input id="password" type="password" value="Admin123!" required></label>
+      <button class="primary full" type="submit">Entrar</button>
+    </form>
+  </main>
+
+  <div id="appView" class="app hidden">
+    <aside>
+      <div class="brand"><img src="/logo-capivara.png" alt="Logo"><b>Estoque</b></div>
+      <nav id="nav">
+        <button data-page="home" class="active">Resumo</button>
+        <button data-page="products">Produtos</button>
+        <button data-page="stock">Estoque</button>
+        <button data-page="history">Histórico</button><button data-page="scanner">Leitor QR</button>
+        <button id="usersNav" data-page="users" class="hidden">Usuários</button>
+      </nav>
+      <div class="account"><span id="userName"></span><button id="logoutBtn">Sair</button></div>
+    </aside>
+
+    <section class="workspace">
+      <header class="page-header">
+        <div><small>CONTROLE DE ESTOQUE</small><h1 id="pageTitle">Resumo</h1></div>
+        <button class="primary" data-open="entry">+ Entrada</button>
+      </header>
+      <section id="homePage" class="page"></section>
+      <section id="productsPage" class="page hidden"></section>
+      <section id="stockPage" class="page hidden"></section>
+      <section id="historyPage" class="page hidden"></section><section id="scannerPage" class="page hidden"></section>
+      <section id="usersPage" class="page hidden"></section>
+    </section>
+  </div>
+
+  <div id="modal" class="overlay hidden">
+    <form id="modalForm" class="modal">
+      <header><h2 id="modalTitle"></h2><button id="closeModal" type="button">×</button></header>
+      <div id="modalBody"></div>
+      <footer><button id="cancelModal" type="button" class="secondary">Cancelar</button><button class="primary" type="submit">Salvar</button></footer>
+    </form>
+  </div>
+  <script src="/jsQR.js?v=6.1.0"></script>
+  <script src="/app.js?v=6.1.0"></script>
+</body>
+</html>

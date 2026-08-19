@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment: {POSTGRES_DB: inventory, POSTGRES_USER: inventory, POSTGRES_PASSWORD: inventory}
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inventory -d inventory"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://inventory:inventory@db:5432/inventory
+      SECRET_KEY: ${SECRET_KEY:-troque-esta-chave-em-producao}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@estoque.local}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Admin123!}
+      ADMIN_NAME: ${ADMIN_NAME:-Administrador}
+    ports: ["8000:8000"]
+    depends_on: {db: {condition: service_healthy}}
+  frontend:
+    image: estoque-frontend:6.2.0
+    build: ./frontend
+    ports: ["4200:80"]
+    depends_on: [api]
+volumes: {postgres_data: {}}
